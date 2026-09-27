@@ -219,7 +219,7 @@
             margin: 0 auto 30px;
             border-radius: 50%;
             overflow: hidden;
-            border: 5px solid rgba(52, 152, 219, 0.3);
+            border: 5px solid rgba(0, 255, 136, 0.3);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             transition: var(--transition);
         }
@@ -227,7 +227,7 @@
         .avatar-container:hover {
             transform: scale(1.05);
             border-color: var(--primary-color);
-            box-shadow: 0 15px 40px rgba(52, 152, 219, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.3);
         }
 
         .avatar {
@@ -236,17 +236,15 @@
             object-fit: cover;
         }
 
-        /* 修改首页标题为渐变色 */
         .hero h1 {
             font-size: 4.2rem;
             margin-bottom: 15px;
             font-weight: 800;
-            background: linear-gradient(to right, #3498db, #2ecc71, #9b59b6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffffff;
             letter-spacing: 2px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            text-shadow:
+                0 0 30px rgba(52, 152, 219, 0.4),
+                0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .hero-subtitle {
@@ -285,18 +283,18 @@
 
         .tag {
             display: inline-block;
-            background-color: rgba(52, 152, 219, 0.1);
+            background-color: rgba(0, 255, 136, 0.1);
             color: var(--primary-color);
             padding: 8px 20px;
             border-radius: 30px;
             font-size: 0.9rem;
             transition: var(--transition);
-            border: 1px solid rgba(52, 152, 219, 0.3);
+            border: 1px solid rgba(0, 255, 136, 0.3);
             font-weight: 500;
         }
 
         .tag:hover {
-            background-color: rgba(52, 152, 219, 0.2);
+            background-color: rgba(0, 255, 136, 0.2);
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
@@ -610,13 +608,13 @@
         }
 
         .resource-tag {
-            background-color: rgba(52, 152, 219, 0.1);
+            background-color: rgba(0, 255, 136, 0.1);
             color: var(--primary-color);
             padding: 5px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
-            border: 1px solid rgba(52, 152, 219, 0.2);
+            border: 1px solid rgba(0, 255, 136, 0.2);
         }
 
         /* 页脚 - 优化版高级黑主题 */
@@ -927,8 +925,20 @@
             right: 0;
             bottom: 0;
             background-image:
-                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(46, 204, 113, 0.05) 0%, transparent 20%);
+                linear-gradient(45deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(-45deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .section:nth-child(even)::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 80% 10%, rgba(52, 152, 219, 0.05) 0%, transparent 30%);
             pointer-events: none;
         }
 
@@ -1042,9 +1052,298 @@
             width: 80%;
             max-width: 400px;
         }
+
+        /* ========== 苹果风动效增强 ========== */
+
+        /* 顶部滚动进度条 */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(to right, #3498db, #2ecc71, #9b59b6);
+            z-index: 1001;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.6);
+        }
+
+        /* Hero 光斑缓慢漂移 */
+        .hero .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.55;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .hero .blob-1 {
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, #3498db, transparent 70%);
+            top: -100px; left: -100px;
+            animation: blobFloat1 18s ease-in-out infinite;
+        }
+        .hero .blob-2 {
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, #2ecc71, transparent 70%);
+            bottom: -150px; right: -150px;
+            animation: blobFloat2 22s ease-in-out infinite;
+        }
+        .hero .blob-3 {
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, #9b59b6, transparent 70%);
+            top: 40%; left: 50%;
+            animation: blobFloat3 26s ease-in-out infinite;
+        }
+        @keyframes blobFloat1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(80px, 60px) scale(1.15); }
+        }
+        @keyframes blobFloat2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-100px, -70px) scale(1.2); }
+        }
+        @keyframes blobFloat3 {
+            0%, 100% { transform: translate(-50%, 0) scale(1); }
+            50% { transform: translate(-40%, -80px) scale(1.1); }
+        }
+
+        /* Hero 鼠标视差 */
+        .hero-content {
+            transition: transform 0.3s ease-out;
+            will-change: transform;
+        }
+
+        /* Hero 标题逐字入场 */
+        .hero h1 .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(60px);
+            color: #ffffff;
+            animation: charIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        @keyframes charIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 通用滚动揭示 */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* 3D 倾斜卡片 */
+        .tilt-card {
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        /* 摄影作品悬停光晕 */
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%),
+                        rgba(255, 255, 255, 0.15), transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .gallery-item:hover::after { opacity: 1; }
+
+        /* 按钮微光扫过 */
+        .btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transition: left 0.6s ease;
+        }
+        .btn:hover::before { left: 100%; }
+
+        /* 数字滚动高亮 */
+        .count-up {
+            font-variant-numeric: tabular-nums;
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+
+        /* 技能标签悬停发光 */
+        .skill-tag {
+            transition: all 0.25s ease;
+        }
+        .skill-tag:hover {
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+            transform: translateY(-3px);
+        }
+
+        /* 兴趣卡片图标旋转 */
+        .interest-card .interest-icon {
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .interest-card:hover .interest-icon {
+            transform: scale(1.15) rotate(-5deg);
+        }
+
+        /* 资源卡片图标浮动 */
+        .resource-card .resource-icon {
+            transition: transform 0.4s ease;
+        }
+        .resource-card:hover .resource-icon {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* 社交按钮跳动 */
+        .social-links a {
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .social-links a:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* 尊重系统减少动效偏好 */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ========== 背景丰富化 ========== */
+
+        /* 卡片 hover 边框发光 */
+        .info-card:hover,
+        .interest-card:hover,
+        .resource-card:hover {
+            box-shadow:
+                0 0 0 1px rgba(0, 255, 136, 0.5),
+                0 15px 40px rgba(0, 255, 136, 0.15),
+                0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        /* 摄影作品 hover 图片放大更明显 */
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.12);
+        }
+
+        /* 导航当前 section 高亮 */
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* 卡片内文字 hover 微调 */
+        .info-card, .interest-card, .resource-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* 按钮 hover 边框发光 */
+        .btn:hover {
+            box-shadow: 0 0 20px rgba(52, 152, 219, 0.3);
+        }
+
+        /* 数字滚动时脉冲 */
+        .count-up {
+            display: inline-block;
+            transition: transform 0.2s ease;
+        }
+        .count-up.animate-pulse {
+            animation: countPulse 0.6s ease;
+        }
+        @keyframes countPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        /* 回到顶部按钮 */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #2a2a2a;
+            color: var(--primary-color);
+            border: 1px solid #444;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        #back-to-top:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(52, 152, 219, 0.3);
+        }
+
+        /* 打字机光标 */
+        .hero-subtitle .cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.2em;
+            background: var(--primary-color);
+            margin-left: 5px;
+            vertical-align: middle;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* 导航 hover 蓝色 */
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* 卡片左侧条 hover 发光 */
+        .info-card::before,
+        .interest-card::before {
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+            transition: box-shadow 0.3s ease;
+        }
+        .info-card:hover::before,
+        .interest-card:hover::before {
+            box-shadow: 0 0 10px var(--primary-color);
+        }
     </style>
 </head>
 <body>
+    <!-- 顶部滚动进度条 -->
+    <div id="scroll-progress"></div>
+
     <!-- 导航栏 -->
     <header>
         <div class="container">
@@ -1069,6 +1368,9 @@
 
     <!-- 首页横幅 -->
     <section id="home" class="hero">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
         <div class="container">
             <div class="hero-content animate-fadeInUp">
                 <div class="avatar-container">
@@ -1289,19 +1591,6 @@
                         <span class="resource-tag">算法</span>
                     </div>
                 </div>
-
-                <div class="resource-card">
-                    <div class="resource-icon">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                    <h3>摄影学习资源</h3>
-                    <p>摄影技巧教程、后期处理软件推荐和优秀摄影师作品欣赏，提升摄影水平。</p>
-                    <div class="resource-tags">
-                        <span class="resource-tag">摄影</span>
-                        <span class="resource-tag">后期</span>
-                        <span class="resource-tag">技巧</span>
-                    </div>
-                </div>
             </div>
 
             <div class="btn-center" style="margin-top: 40px;">
@@ -1456,15 +1745,6 @@
                 </ul>
             </div>
 
-            <div class="info-card" style="margin: 20px 0;">
-                <h4><i class="fas fa-camera"></i> 摄影学习资源</h4>
-                <ul>
-                    <li><i class="fas fa-external-link-alt"></i> <a href="https://photographylife.com/" target="_blank">Photography Life</a> - 全面的摄影教程网站</li>
-                    <li><i class="fas fa-external-link-alt"></i> <a href="https://www.youtube.com/c/ThomasHeaton" target="_blank">Thomas Heaton</a> - 风景摄影YouTube频道</li>
-                    <li><i class="fas fa-external-link-alt"></i> <a href="https://www.dpreview.com/" target="_blank">DPReview</a> - 相机评测和摄影新闻</li>
-                </ul>
-            </div>
-
             <div style="text-align: center; margin-top: 25px;">
                 <p>我会持续更新这个资源列表，如果你有好的资源推荐，欢迎联系我分享！</p>
             </div>
@@ -1508,6 +1788,9 @@
             </div>
         </div>
     </div>
+
+    <!-- 回到顶部按钮 -->
+    <button id="back-to-top" title="回到顶部"><i class="fas fa-arrow-up"></i></button>
 
     <script>
         // 移动端导航菜单切换
@@ -1694,6 +1977,208 @@
                 el.style.animation = 'fadeInUp 0.8s ease forwards';
             });
         });
+
+        /* ========== 苹果风动效增强 ========== */
+
+        // 1. 顶部滚动进度条
+        const progressBar = document.getElementById('scroll-progress');
+        function updateProgress() {
+            const h = document.documentElement;
+            const scrolled = h.scrollTop || document.body.scrollTop;
+            const max = h.scrollHeight - h.clientHeight;
+            progressBar.style.width = (max > 0 ? (scrolled / max) * 100 : 0) + '%';
+        }
+        window.addEventListener('scroll', updateProgress, { passive: true });
+        updateProgress();
+
+        // 2. Hero 标题逐字入场
+        const heroH1 = document.querySelector('.hero h1');
+        if (heroH1) {
+            const text = heroH1.textContent;
+            heroH1.textContent = '';
+            [...text].forEach((ch, i) => {
+                const span = document.createElement('span');
+                span.className = 'char';
+                span.textContent = ch === ' ' ? '\u00A0' : ch;
+                span.style.animationDelay = (i * 0.05) + 's';
+                heroH1.appendChild(span);
+            });
+        }
+
+        // 3. Hero 鼠标视差（内容随鼠标轻微移动）
+        const hero = document.querySelector('.hero');
+        const heroContent = document.querySelector('.hero-content');
+        if (hero && heroContent && window.matchMedia('(pointer: fine)').matches) {
+            hero.addEventListener('mousemove', (e) => {
+                const rect = hero.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                heroContent.style.transform = `translate(${x * 30}px, ${y * 30}px)`;
+            });
+            hero.addEventListener('mouseleave', () => {
+                heroContent.style.transform = 'translate(0, 0)';
+            });
+        }
+
+        // 4. 卡片 3D 倾斜（仅鼠标设备）
+        if (window.matchMedia('(pointer: fine)').matches) {
+            document.querySelectorAll('.interest-card, .resource-card, .info-card').forEach(card => {
+                card.classList.add('tilt-card');
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+                    card.style.transform = `perspective(800px) rotateX(${-y * 14}deg) rotateY(${x * 14}deg) translateY(-8px)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = '';
+                });
+            });
+
+            // 5. 摄影作品光晕跟随鼠标
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                item.addEventListener('mousemove', (e) => {
+                    const rect = item.getBoundingClientRect();
+                    item.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+                    item.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
+                });
+            });
+        }
+
+        // 6. 数字滚动 count-up
+        function animateCount(el, target, decimals = 0, suffix = '') {
+            const duration = 1800;
+            const start = performance.now();
+            function tick(now) {
+                const p = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - p, 3);
+                const val = (target * eased).toFixed(decimals);
+                el.textContent = val + suffix;
+                if (p < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        }
+        // 把关键数字包成 .count-up 并在进入视口时播放
+        function wrapNumbers() {
+            // 找教育背景卡片里的 GPA 和百分比
+            const targetPatterns = [
+                { re: /3\.78/, decimals: 2, suffix: '' },
+                { re: /27\.6%/, decimals: 1, suffix: '%' },
+                { re: /98\.28%/, decimals: 2, suffix: '%' },
+                { re: /50%\+/, decimals: 0, suffix: '%+' },
+            ];
+            document.querySelectorAll('.info-card li, .info-card h4').forEach(li => {
+                let html = li.innerHTML;
+                targetPatterns.forEach(p => {
+                    if (p.re.test(html) && !li.querySelector('.count-up')) {
+                        html = html.replace(p.re, m => `<span class="count-up" data-target="${parseFloat(m)}" data-decimals="${p.decimals}" data-suffix="${p.suffix}">0${p.suffix}</span>`);
+                        li.innerHTML = html;
+                    }
+                });
+            });
+        }
+        wrapNumbers();
+
+        const countObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseFloat(el.dataset.target);
+                    const decimals = parseInt(el.dataset.decimals || 0);
+                    const suffix = el.dataset.suffix || '';
+                    animateCount(el, target, decimals, suffix);
+                    countObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('.count-up').forEach(el => countObserver.observe(el));
+
+        // 7. section 标题滚动淡入
+        document.querySelectorAll('.section-title').forEach(t => t.classList.add('reveal'));
+        const titleObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    titleObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        document.querySelectorAll('.reveal').forEach(el => titleObserver.observe(el));
+
+        // 8. 导航当前 section 高亮
+        const sections = document.querySelectorAll('section[id]');
+        const navAnchors = document.querySelectorAll('.nav-links a');
+        const navSpy = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    navAnchors.forEach(a => {
+                        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+        sections.forEach(s => navSpy.observe(s));
+
+        // 10. 数字滚动完成时脉冲
+        const origAnimateCount = animateCount;
+        // 重写 animateCount，完成时加脉冲
+        function animateCountWithPulse(el, target, decimals, suffix) {
+            origAnimateCount(el, target, decimals, suffix);
+            setTimeout(() => el.classList.add('animate-pulse'), 1800);
+        }
+        // 替换 countObserver 里的调用
+        countObserver.disconnect();
+        document.querySelectorAll('.count-up').forEach(el => {
+            countObserver.observe(el);
+        });
+        // 覆盖 observer 回调里的动画调用
+        countObserver.disconnect();
+        const countObserver2 = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseFloat(el.dataset.target);
+                    const decimals = parseInt(el.dataset.decimals || 0);
+                    const suffix = el.dataset.suffix || '';
+                    origAnimateCount(el, target, decimals, suffix);
+                    setTimeout(() => el.classList.add('animate-pulse'), 1800);
+                    countObserver2.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('.count-up').forEach(el => countObserver2.observe(el));
+
+        // 11. 回到顶部按钮
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 12. 副标题打字机效果
+        const subtitle = document.querySelector('.hero-subtitle');
+        if (subtitle) {
+            const text = subtitle.textContent.trim();
+            subtitle.textContent = '';
+            const cursor = document.createElement('span');
+            cursor.className = 'cursor';
+            subtitle.appendChild(cursor);
+            let i = 0;
+            setTimeout(function type() {
+                if (i <= text.length) {
+                    cursor.insertAdjacentText('beforebegin', text[i] || '');
+                    i++;
+                    setTimeout(type, 120);
+                }
+            }, 800);
+        }
     </script>
 </body>
 </html>
